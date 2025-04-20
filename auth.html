@@ -1,0 +1,23 @@
+<!-- auth.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Spotify Auth</title>
+</head>
+<body>
+  <h2>Logged in to Spotify ✅</h2>
+  <p id="token"></p>
+
+  <script>
+    // Get token from URL hash
+    const hash = window.location.hash;
+    const token = hash.match(/access_token=([^&]*)/)[1];
+
+    document.getElementById("token").textContent = "Access Token: " + token;
+
+    // Store token (optional)
+    localStorage.setItem("spotify_token", token);
+  </script>
+</body>
+</html>
