@@ -1,31 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8" />
-    <title>Spotify Auth</title>
+  <title>Spotify Auth</title>
 </head>
 <body>
-    <h2>Spotify Authentication</h2>
-    <p id="token-message"></p>
-
-    <script>
-        const hash = window.location.hash;
-        const accessTokenMatch = hash.match(/access_token=([^&]*)/);
-        const errorMatch = hash.match(/error=([^&]*)/);
-
-        if (accessTokenMatch) {
-            const accessToken = accessTokenMatch[1];
-            document.getElementById("token-message").textContent = "Access Token: " + accessToken;
-            localStorage.setItem("spotify_token", accessToken);
-            // Optionally redirect to your main app page here
-            // window.location.href = "index.html";
-        } else if (errorMatch) {
-            const error = errorMatch[1];
-            document.getElementById("token-message").textContent = "Authentication Error: " + error;
-            console.error("Spotify Authentication Error:", error);
-        } else {
-            document.getElementById("token-message").textContent = "No access token or error found.";
-        }
-    </script>
+  <script>
+    try {
+      const hash = window.location.hash.substring(1);
+      const params = new URLSearchParams(hash);
+      
+      if (params.has('access_token')) {
+        const token = params.get('access_token');
+        localStorage.setItem('spotify_token', token);
+        window.location.href = 'index.html'; // Redirect to main app
+      } else if (params.has('error')) {
+        console.error('Auth error:', params.get('error'));
+        document.body.innerHTML = `<h1>Error: ${params.get('error')}</h1>`;
+      }
+    } catch (error) {
+      console.error('Auth processing error:', error);
+      document.body.innerHTML = '<h1>Authentication failed</h1>';
+    }
+  </script>
 </body>
 </html>
