@@ -7,29 +7,22 @@
 <body>
     <div class="container">
         <h1 id="clock">00:00:00</h1>
-        <div id="player-controls">
+        <div id="auth-section">
             <button id="login-btn">Login with Spotify</button>
-            <div id="player-ui" style="display:none;">
+        </div>
+        <div id="player-section" style="display:none;">
+            <div class="player-controls">
                 <button id="play-btn">▶ Play</button>
                 <button id="prev-btn">⏮</button>
                 <button id="next-btn">⏭</button>
-                <div id="track-info">Not Playing</div>
             </div>
+            <div id="now-playing">Ready to play</div>
         </div>
     </div>
 
     <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script src="clock.js"></script>
     <script src="login.js"></script>
-    <script src="player.js"></script>
-    <script>
-        // Clock functionality
-        function updateClock() {
-            const now = new Date();
-            document.getElementById('clock').textContent = 
-                now.toLocaleTimeString();
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
