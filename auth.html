@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Spotify Auth</title>
+    <title>Spotify Auth</title>
 </head>
 <body>
-  <script>
-    try {
-      const hash = window.location.hash.substring(1);
-      const params = new URLSearchParams(hash);
-      
-      if (params.has('access_token')) {
-        const token = params.get('access_token');
-        localStorage.setItem('spotify_token', token);
-        window.location.href = 'index.html'; // Redirect to main app
-      } else if (params.has('error')) {
-        console.error('Auth error:', params.get('error'));
-        document.body.innerHTML = `<h1>Error: ${params.get('error')}</h1>`;
-      }
-    } catch (error) {
-      console.error('Auth processing error:', error);
-      document.body.innerHTML = '<h1>Authentication failed</h1>';
-    }
-  </script>
+    <script>
+        try {
+            const hash = window.location.hash.substring(1);
+            const params = new URLSearchParams(hash);
+
+            if (params.has('access_token')) {
+                const token = params.get('access_token');
+                localStorage.setItem('spotify_token', token);
+                window.location.href = 'index.html'; // Redirect to main app
+            } else if (params.has('error')) {
+                console.error('Auth error:', params.get('error'));
+                document.body.innerHTML = `<h1>Error: ${params.get('error')}</h1>`;
+            }
+        } catch (error) {
+            console.error('Auth processing error:', error);
+            document.body.innerHTML = '<h1>Authentication failed</h1>';
+        }
+    </script>
 </body>
 </html>
