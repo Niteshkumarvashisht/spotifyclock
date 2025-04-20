@@ -1,23 +1,31 @@
-<!-- auth.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Spotify Auth</title>
+    <meta charset="UTF-8" />
+    <title>Spotify Auth</title>
 </head>
 <body>
-  <h2>Logged in to Spotify ✅</h2>
-  <p id="token"></p>
+    <h2>Spotify Authentication</h2>
+    <p id="token-message"></p>
 
-  <script>
-    // Get token from URL hash
-    const hash = window.location.hash;
-    const token = hash.match(/access_token=([^&]*)/)[1];
+    <script>
+        const hash = window.location.hash;
+        const accessTokenMatch = hash.match(/access_token=([^&]*)/);
+        const errorMatch = hash.match(/error=([^&]*)/);
 
-    document.getElementById("token").textContent = "Access Token: " + token;
-
-    // Store token (optional)
-    localStorage.setItem("spotify_token", token);
-  </script>
+        if (accessTokenMatch) {
+            const accessToken = accessTokenMatch[1];
+            document.getElementById("token-message").textContent = "Access Token: " + accessToken;
+            localStorage.setItem("spotify_token", accessToken);
+            // Optionally redirect to your main app page here
+            // window.location.href = "index.html";
+        } else if (errorMatch) {
+            const error = errorMatch[1];
+            document.getElementById("token-message").textContent = "Authentication Error: " + error;
+            console.error("Spotify Authentication Error:", error);
+        } else {
+            document.getElementById("token-message").textContent = "No access token or error found.";
+        }
+    </script>
 </body>
 </html>
