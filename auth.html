@@ -8,18 +8,20 @@
         try {
             const hash = window.location.hash.substring(1);
             const params = new URLSearchParams(hash);
-
+            
             if (params.has('access_token')) {
-                const token = params.get('access_token');
-                localStorage.setItem('spotify_token', token);
-                window.location.href = 'index.html'; // Redirect to main app
-            } else if (params.has('error')) {
-                console.error('Auth error:', params.get('error'));
-                document.body.innerHTML = `<h1>Error: ${params.get('error')}</h1>`;
+                localStorage.setItem('spotify_token', params.get('access_token'));
+                localStorage.setItem('spotify_token_expiry', Date.now() + 3600 * 1000); // 1 hour expiry
+                window.location.href = 'index.html';
+            } else {
+                document.body.innerHTML = '<h1>Authentication Error</h1>';
+                if (params.has('error')) {
+                    console.error('Spotify Auth Error:', params.get('error'));
+                }
             }
         } catch (error) {
             console.error('Auth processing error:', error);
-            document.body.innerHTML = '<h1>Authentication failed</h1>';
+            document.body.innerHTML = '<h1>Authentication Failed</h1>';
         }
     </script>
 </body>
