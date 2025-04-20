@@ -1,18 +1,35 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>Clock + Spotify</title>
-  <link rel="stylesheet" href="style.css" />
+    <title>Spotify Clock</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1 id="clock">--:--:--</h1>
-    <button onclick="login()">Login with Spotify</button>
-  </div>
+    <div class="container">
+        <h1 id="clock">00:00:00</h1>
+        <div id="player-controls">
+            <button id="login-btn">Login with Spotify</button>
+            <div id="player-ui" style="display:none;">
+                <button id="play-btn">▶ Play</button>
+                <button id="prev-btn">⏮</button>
+                <button id="next-btn">⏭</button>
+                <div id="track-info">Not Playing</div>
+            </div>
+        </div>
+    </div>
 
-  <script src="clock.js"></script>
-  <script src="login.js"></script>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script src="login.js"></script>
+    <script src="player.js"></script>
+    <script>
+        // Clock functionality
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').textContent = 
+                now.toLocaleTimeString();
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
 </body>
 </html>
